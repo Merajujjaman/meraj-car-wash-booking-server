@@ -30,9 +30,9 @@ const createUserValidationSchema = z.object({
     invalid_type_error: "Address must be a string",
   }),
 
-  role: z.enum(["admin", "users"], {
+  role: z.enum(["admin", "user"], {
     required_error: "Role is required",
-    invalid_type_error: 'Role must be either "admin" or "users"',
+    invalid_type_error: 'Role must be either "admin" or "user"',
   }),
 });
 

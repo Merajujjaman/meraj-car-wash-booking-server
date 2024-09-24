@@ -1,7 +1,8 @@
-import { model, Schema } from "mongoose";
-import { TUser } from "./user.interface";
-
-const userSchema = new Schema<TUser>({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.User = void 0;
+const mongoose_1 = require("mongoose");
+const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, 'name is required'],
@@ -30,8 +31,7 @@ const userSchema = new Schema<TUser>({
         enum: ["admin", "user"],
         required: [true, 'role is required']
     }
-},{
+}, {
     timestamps: true
-})
-
-export const User = model<TUser>('User', userSchema)
+});
+exports.User = (0, mongoose_1.model)('User', userSchema);
