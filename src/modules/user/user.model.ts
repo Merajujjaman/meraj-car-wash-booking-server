@@ -9,7 +9,8 @@ const userSchema = new Schema<TUser>({
     email: {
         type: String,
         required: [true, 'email is required'],
-        trim: true
+        trim: true,
+        unique: true
     },
     phone: {
         type: String,

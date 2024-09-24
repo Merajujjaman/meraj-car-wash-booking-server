@@ -8,11 +8,7 @@ const validationRequest = (schema: AnyZodObject) => {
       await schema.parseAsync(req.body);
       next()
     } catch (error: any) {
-      res.status(500).json({
-        success: false,
-        message: error.name,
-        error
-      });
+     next(error)
     }
   };
 };

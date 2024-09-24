@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { authServices } from "./auth.service";
 
-const signup = async (req: Request, res: Response) => {
+const signup = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await authServices.signupDB(req.body);
 
@@ -11,12 +10,8 @@ const signup = async (req: Request, res: Response) => {
       message: "user sign up successfully",
       data: result,
     });
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-      error: error,
-    });
+  } catch (error) {
+    next(error);
   }
 };
 
