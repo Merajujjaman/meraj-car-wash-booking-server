@@ -9,15 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authControllers = void 0;
-const auth_service_1 = require("./auth.service");
-const signup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.serviceControllers = void 0;
+const service_service_1 = require("./service.service");
+const createService = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield auth_service_1.authServices.signupDB(req.body);
+        const result = yield service_service_1.serviceServices.createServicesDB(req.body);
         res.status(200).json({
             success: true,
             statusCode: 200,
-            message: "user sign up successfully",
+            message: "Service created successfully",
             data: result,
         });
     }
@@ -25,22 +25,6 @@ const signup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
         next(error);
     }
 });
-const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { token, user } = yield auth_service_1.authServices.loginDB(req.body);
-        res.status(200).json({
-            success: true,
-            statusCode: 200,
-            message: "user logged in successfully",
-            token,
-            data: user,
-        });
-    }
-    catch (error) {
-        next(error);
-    }
-});
-exports.authControllers = {
-    signup,
-    login,
+exports.serviceControllers = {
+    createService
 };
