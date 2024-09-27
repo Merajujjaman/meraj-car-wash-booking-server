@@ -23,6 +23,25 @@ const createServiceValidationSchema = zod_1.z.object({
         invalid_type_error: 'isDeleted must be a boolean',
     }).optional(),
 });
+const updateServiceValidationSchema = zod_1.z.object({
+    name: zod_1.z.string({
+        required_error: 'Service name is required',
+        invalid_type_error: 'Service name must be a string',
+    }).optional(),
+    description: zod_1.z.string({
+        required_error: 'Service description is required',
+        invalid_type_error: 'Service description must be a string',
+    }).optional(),
+    price: zod_1.z.number({
+        required_error: 'Service price is required',
+        invalid_type_error: 'Service price must be a number',
+    }).optional(),
+    duration: zod_1.z.number({
+        required_error: 'Service duration is required',
+        invalid_type_error: 'Service duration must be a number',
+    }).optional(),
+});
 exports.serviceValidations = {
-    createServiceValidationSchema
+    createServiceValidationSchema,
+    updateServiceValidationSchema
 };
