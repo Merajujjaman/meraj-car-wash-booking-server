@@ -90,5 +90,5 @@ exports.serviceControllers = {
     getAllServices,
     getSingleService,
     updateService,
-    deleteService
+    deleteService,
 };

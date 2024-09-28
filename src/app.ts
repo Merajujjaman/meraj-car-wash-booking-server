@@ -3,6 +3,7 @@ import cors from 'cors';
 import { authRoutes } from './modules/auth/auth.routes';
 import globalErrorHandler from './middleware/globalErrorHandler';
 import { serviceRoutes } from './modules/service/service.routes';
+import { slotRoutes } from './modules/slot/slot.routes';
 const app : Application = express()
 
 //parser
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 // routers
 app.use('/api/auth', authRoutes)
 app.use('/api/services', serviceRoutes)
+app.use('/api/slots', slotRoutes)
 
 
 //global error handler
