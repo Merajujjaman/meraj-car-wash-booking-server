@@ -2,18 +2,16 @@ import { z } from "zod";
 
 const createBookingValidationSchema = z.object({
   customer: z
-    .string({
-      required_error: "Customer reference is required",
-      invalid_type_error: "Customer reference must be a valid ObjectId string",
-    })
-    .optional(),
-
-  service: z.string({
+  .string({
+    required_error: "Customer reference is required",
+    invalid_type_error: "Customer reference must be a valid ObjectId string",
+  }),
+  serviceId: z.string({
     required_error: "Service reference is required",
     invalid_type_error: "Service reference must be a valid ObjectId string",
   }),
 
-  slot: z.string({
+  slotId: z.string({
     required_error: "Slot reference is required",
     invalid_type_error: "Slot reference must be a valid ObjectId string",
   }),

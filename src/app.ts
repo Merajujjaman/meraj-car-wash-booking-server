@@ -4,6 +4,7 @@ import { authRoutes } from './modules/auth/auth.routes';
 import globalErrorHandler from './middleware/globalErrorHandler';
 import { serviceRoutes } from './modules/service/service.routes';
 import { slotRoutes } from './modules/slot/slot.routes';
+import { bookingRoutes } from './modules/booking/booking.routes';
 const app : Application = express()
 
 //parser
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/services', serviceRoutes)
 app.use('/api/slots', slotRoutes)
+app.use('/api/bookings', bookingRoutes)
 
 
 //global error handler

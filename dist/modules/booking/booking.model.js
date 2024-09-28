@@ -8,12 +8,12 @@ const bookingSchema = new mongoose_1.Schema({
         ref: 'User',
         required: [true, 'Customer reference is required'],
     },
-    service: {
+    serviceId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'Service',
         required: [true, 'Service reference is required'],
     },
-    slot: {
+    slotId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'Slot',
         required: [true, 'Slot reference is required'],

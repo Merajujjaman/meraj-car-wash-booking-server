@@ -9,6 +9,7 @@ const auth_routes_1 = require("./modules/auth/auth.routes");
 const globalErrorHandler_1 = __importDefault(require("./middleware/globalErrorHandler"));
 const service_routes_1 = require("./modules/service/service.routes");
 const slot_routes_1 = require("./modules/slot/slot.routes");
+const booking_routes_1 = require("./modules/booking/booking.routes");
 const app = (0, express_1.default)();
 //parser
 app.use(express_1.default.json());
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', auth_routes_1.authRoutes);
 app.use('/api/services', service_routes_1.serviceRoutes);
 app.use('/api/slots', slot_routes_1.slotRoutes);
+app.use('/api/bookings', booking_routes_1.bookingRoutes);
 //global error handler
 app.use(globalErrorHandler_1.default);
 // app.listen(port, () => {
