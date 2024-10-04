@@ -9,5 +9,6 @@ import { bookingValidations } from './booking.validation';
 const router = express.Router()
 
 router.post('/', authAllowedFor('user'), getCustomerId, validationRequest(bookingValidations.createBookingValidationSchema), bookingControllers.booking )
+router.get('/', authAllowedFor('admin'), bookingControllers.getAllbookings )
 
 export const bookingRoutes = router;

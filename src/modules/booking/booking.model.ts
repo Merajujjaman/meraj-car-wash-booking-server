@@ -40,7 +40,10 @@ const bookingSchema = new Schema<TBooking>({
     required: [true, 'Registration plate is required'],
   },
 },{
-    timestamps: true
+    timestamps: true,
+ 
 });
+
+
 
 export const Booking = model<TBooking>('Booking', bookingSchema);

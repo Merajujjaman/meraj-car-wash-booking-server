@@ -20,23 +20,23 @@ const bookingDB = async (payload: TBooking) => {
       manufacturingYear,
       registrationPlate,
     } = payload;
-    const user = await User.findById(customer).session(session);
-    const service = await Service.findOne({ _id: serviceId, isDeleted: false }).session(session);
-    const slot = await Slot.findById(slotId).session(session);
+    const user = await User.findById(customer);
+    const service = await Service.findOne({ _id: serviceId, isDeleted: false });
+    const slot = await Slot.findById(slotId);
     if (!user) {
       throw new Error("user not found");
     }
     if (!service) {
       throw new Error("Please try another service");
     }
-    if (slot?.isBooked !== "available") {
+    if (!slot || slot?.isBooked !== "available") {
       throw new Error("This slot is not available");
     }
 
     const booking = new Booking({
       customer: user?._id,
-      service: serviceId,
-      slot: slotId,
+      serviceId,
+      slotId,
       vehicleType,
       vehicleBrand,
       vehicleModel,
@@ -44,37 +44,80 @@ const bookingDB = async (payload: TBooking) => {
       registrationPlate,
     });
 
-    const bookedData = await booking.save({session});
+    const bookedData = await booking.save({ session });
 
     slot.isBooked = "booked";
-    await slot.save({session});
+    await slot.save({ session });
 
-    const result = await Booking.findById(bookedData._id)
+    const populateResult = await Booking.findById(bookedData._id)
       .populate({
         path: "customer",
         select: "_id name email phone address",
       })
       .populate({
-        path: "service",
+        path: "serviceId",
         select: "_id name description price duration isDeleted",
       })
       .populate({
-        path: "slot",
+        path: "slotId",
         select: "_id service date startTime endTime isBooked",
-      }).session(session);
+      })
+      .session(session);
 
-      await session.commitTransaction()
-      session.endSession()
-      
+    const result = {
+      ...populateResult?.toObject(),
+      service: populateResult?.serviceId,
+      slot: populateResult?.slotId,
+    };
+    if (result) {
+      delete result.serviceId;
+      delete result.slotId;
+    }
+
+    await session.commitTransaction();
+    session.endSession();
 
     return result;
   } catch (error: any) {
     await session.abortTransaction();
-    session.endSession()
-    throw new Error(`Booking transaction failed: ${error.message}`)
+    session.endSession();
+    throw new Error(`Booking transaction failed: ${error.message}`);
   }
 };
 
+const getAllBookingsDB = async() => {
+  const data = await Booking.find().populate({
+    path: 'customer',
+    select: '_id name email phone address'
+  }).populate({
+    path: "serviceId",
+    select: "_id name description price duration isDeleted",
+  })
+  .populate({
+    path: "slotId",
+    select: "_id service date startTime endTime isBooked",
+  })
+
+  return data
+}
+
+const getMyBookingDB = async (customer: string) => {
+    const result = await Booking.findOne({customer}).populate({
+      path: 'customer',
+      select: '_id name email phone address'
+    }).populate({
+      path: "serviceId",
+      select: "_id name description price duration isDeleted",
+    })
+    .populate({
+      path: "slotId",
+      select: "_id service date startTime endTime isBooked",
+    })
+    return result
+}
+
 export const bookingServices = {
   bookingDB,
+  getAllBookingsDB,
+  getMyBookingDB
 };
