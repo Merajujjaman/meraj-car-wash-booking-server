@@ -40,6 +40,6 @@ const bookingSchema = new mongoose_1.Schema({
         required: [true, 'Registration plate is required'],
     },
 }, {
-    timestamps: true
+    timestamps: true,
 });
 exports.Booking = (0, mongoose_1.model)('Booking', bookingSchema);

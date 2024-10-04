@@ -21,7 +21,7 @@ const authAllowedFor = (...allowedFor) => {
         try {
             const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
             if (!token) {
-                throw new Error("Please provide an Admin token");
+                throw new Error("Please provide a token");
             }
             const decodedToken = jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secret);
             const { email, role } = decodedToken;

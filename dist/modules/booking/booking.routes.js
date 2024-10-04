@@ -12,4 +12,5 @@ const validationRequest_1 = __importDefault(require("../../middleware/validation
 const booking_validation_1 = require("./booking.validation");
 const router = express_1.default.Router();
 router.post('/', (0, authAllowedFor_1.default)('user'), getCustomerId_1.default, (0, validationRequest_1.default)(booking_validation_1.bookingValidations.createBookingValidationSchema), booking_controller_1.bookingControllers.booking);
+router.get('/', (0, authAllowedFor_1.default)('admin'), booking_controller_1.bookingControllers.getAllbookings);
 exports.bookingRoutes = router;
