@@ -14,7 +14,7 @@ A full-stack Car Washing System built with **TypeScript**, **Express.js**, **Mon
 ## Live Server
 
 You can access the live version of the API at:
-[www.example.com](http://www.example.com)
+[https://meraj-car-washing-system-server.vercel.app](https://meraj-car-washing-system-server.vercel.app)
 
 ## Prerequisites
 - **Node.js** (v14 or higher)
